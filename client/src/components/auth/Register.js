@@ -4,6 +4,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {setAlert} from '../../actions/alert';
 import PropTypes from 'prop-types';
+import Alert from "../layout/Alert";
 
 export const Register = ({setAlert}) => {
 
@@ -40,33 +41,34 @@ const onSubmit = async (e)=>{
 
             console.log(res.data);
         } catch (error) {
-            console.log(error.resonse.data);
+            console.log(error.response.data);
         }
     }
 }
 
   return (
-    <section class="container">
-    <h1 class="large text-primary">Sign Up</h1>
-    <p class="lead"><i class="fas fa-user"></i> Create Your Account</p>
-    <form class="form" onSubmit={e => onSubmit(e)}>
-      <div class="form-group">
+    <section className="container">
+        <Alert/>
+    <h1 className="large text-primary">Sign Up</h1>
+    <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
+    <form className="form" onSubmit={e => onSubmit(e)}>
+      <div className="form-group">
         <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} required />
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChange}/>
-        <small class="form-text"
+        <small className="form-text"
           >This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <input type="password" placeholder="Password" name="password" minLength="6" value={password} onChange={onChange}/>
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <input type="password" placeholder="Confirm Password" name="password2" minLength="6" value={password2} onChange={onChange}/>
       </div>
-      <input type="submit" class="btn btn-primary" value="Register" />
+      <input type="submit" className="btn btn-primary" value="Register" />
     </form>
-    <p class="my-1">
+    <p className="my-1">
       Already have an account? <Link to="/login">Sign In</Link>
     </p>
   </section>
@@ -77,4 +79,4 @@ Register.propTypes = {
   setAlert: PropTypes.func.isRequired
 }
 
-export default connect(null, setAlert)(Register)
+export default connect(null, setAlert)(Register);

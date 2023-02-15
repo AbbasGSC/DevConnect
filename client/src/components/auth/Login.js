@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import Alert from "../layout/Alert";
 
 export const Login = () => {
 
@@ -39,6 +40,7 @@ const onSubmit = async (e)=>{
 
   return (
     <section class="container">
+        <Alert/>
     <h1 class="large text-primary">Sign In</h1>
     <p class="lead"><i class="fas fa-user"></i> Sign Into Your Account</p>
     <form class="form" onSubmit={e => onSubmit(e)}>
