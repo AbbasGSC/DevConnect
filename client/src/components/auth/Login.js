@@ -2,6 +2,11 @@ import React,{useState} from 'react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Alert from "../layout/Alert";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import { login } from '../../actions/auth'
+
+
 
 export const Login = () => {
 

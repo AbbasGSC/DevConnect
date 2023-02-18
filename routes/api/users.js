@@ -18,8 +18,6 @@ router.post('/',[
         return res.status(400).json({errors:errors.array()});
     }
 
- 
-
     try {
         let user =await User.findOne({ email:req.body.email });
         
@@ -33,7 +31,17 @@ router.post('/',[
             password: bcrypt.hashSync(req.body.password,10)
           });
         user.save();
-        return res.status(200).json(user);
+        const payload = {
+            user:{
+                id: user.id,
+            }
+        }
+        jwt.sign(payload,config.get('jwtSecret'),{
+            expiresIn:3600000
+        },(err,token)=>{
+            if(err) throw err;
+            res.json({token});
+        });
     } catch (err) {
         console.log(err.message);
         res.status(500).send(err.message);
