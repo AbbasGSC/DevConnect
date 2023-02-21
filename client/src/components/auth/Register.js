@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import axios from 'axios';
 import { connect, useDispatch } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import Alert from '../layout/Alert';
 import PropTypes from "prop-types";
+import {Button} from "react";
 
-export const Register = ({setAlert, register}) => {
+export const Register = ({setAlert, register, isAthenticated}) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -30,6 +31,10 @@ export const Register = ({setAlert, register}) => {
 			dispatch(register({name, email, password}));
 		}
 	};
+
+	if(isAthenticated){
+		return redirect("/");
+	}
 
 	return (
 		<section className="container">
@@ -86,12 +91,20 @@ export const Register = ({setAlert, register}) => {
 			<p className="my-1">
 				Already have an account? <Link to="/login">Sign In</Link>
 			</p>
+			<br/>
+
 		</section>
 	);
 };
 
 Register.propTypes = {
 	setAlert: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired
+	register: PropTypes.func.isRequired,
+	isAthenticated: PropTypes.bool.isRequired
 }
-export default connect(null, {setAlert, register})(Register);
+
+const mapStateToProps = state => ({
+	isAthenticated: state.auth.isAthenticated
+});
+
+export default connect(mapStateToProps, {setAlert, register})(Register);

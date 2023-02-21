@@ -1,5 +1,5 @@
 import axios from "axios";
-import {REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL} from "./types";
+import {REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT} from "./types";
 import {setAlert} from "./alert";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -40,6 +40,8 @@ export const register = ({name, email, password}) => async dispatch => {
             type: REGISTER_SUCCESS,
             payload: res.data
         });
+
+        dispatch(loadUser());
     }catch (e) {
         const errors = e.response.data.errors;
 
@@ -62,12 +64,14 @@ export const login = ({email, password}) => async dispatch => {
     const body = JSON.stringify({email,password});
 
     try {
-        const res = await axios.post('/api/auth',body,config);
+        const res = await axios.post('/api/users/login',body,config);
 
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
         });
+
+        dispatch(loadUser());
     }catch (e) {
         const errors = e.response.data.errors;
 
@@ -79,4 +83,8 @@ export const login = ({email, password}) => async dispatch => {
             type: LOGIN_FAIL
         });
     }
-}
+};
+
+export const logout = () => dispatch =>{
+    dispatch({type: LOGOUT});
+};
