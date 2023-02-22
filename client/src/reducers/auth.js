@@ -3,11 +3,11 @@ import {REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS,
 const initialState = {
     token: localStorage.getItem(('token')),
     isAuthenticated: null,
-    loading: true,
+    loading: false,
     user: null
 }
 
-export  default function (state = initialState, action){
+function authReducer(state = initialState, action){
     const { type,payload } = action;
     switch (type) {
         case USER_LOADED:
@@ -41,3 +41,5 @@ export  default function (state = initialState, action){
             return state;
     }
 }
+
+export default authReducer;

@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {logout} from "../../actions/auth";
-import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
 
 export const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
     const authLinks = (
         <ul>
+            <li><Link to="/dashboard">Dashboard</Link></li>
             <li><a onClick={logout} href='#!'>
             <i className="fas fa-sign-out-alt"></i>{' '}
                 <span className="hide-sm"></span>Logout</a>
@@ -33,10 +33,10 @@ export const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
   )
 }
 
-// Navbar.PropTypes = {
-//     logout: PropTypes.func.isRequired,
-//     auth: PropTypes.object.isRequired
-// }
+Navbar.propTypes = {
+    logout: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+}
 
 const mapStateToProps = state => ({
     auth: state.auth
