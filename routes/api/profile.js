@@ -9,7 +9,7 @@ router.get('/me',auth,async (req,res)=> {
     try {
         const profile = await Profile.findOne({user:req.user.id}).populate('user',['name','avatar']);
         if(!profile){
-            return res.status(400).json({msg:'no such profile is available'});
+            return res.status(200).json({msg:'no such profile is available', data: null});
         }
         return res.json(profile);
     } catch (error) {
@@ -49,9 +49,7 @@ router.post('/',[auth,[
     if(bio) profileFields.bio = bio;
     if(status) profileFields.status = status;
     if(githubusername) profileFields.githubusername = githubusername;
-    if(skills){
-        profileFields.skills = skills.split(',').map(skill=>skill.trim());
-    }
+    if(skills) profileFields.skills = skills;
 
     profileFields.social = {};
     if(youtube) profileFields.social.youtube = youtube;
