@@ -5,6 +5,8 @@ import {getCurrentProfile} from "../../actions/profile";
 import PropTypes from 'prop-types';
 import Spinner from "../layout/Spinner";
 import DashboardActions from "./DashboardActions";
+import Experience from "./Experience";
+import Education from "./Education";
 
 
 function Dashboard({getCurrentProfile, auth: {user}, profile: {profile, loading}}) {
@@ -22,6 +24,8 @@ function Dashboard({getCurrentProfile, auth: {user}, profile: {profile, loading}
             </p>
                 {profile !== null ? <Fragment>
                     <DashboardActions/>
+                    <Experience experience={profile.experience}/>
+                    <Education education={profile.education}/>
                 </Fragment> : <Fragment>
                     <p>You have not set up a profile yet, please add some info</p>
                     <Link to="/create-profile" className="btn btn-primary my-1"> Create Profile</Link>
